@@ -5,9 +5,99 @@
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vite App</title>
+    <script src="../vue-project/src/js/vue.js"></script>
   </head>
+  <style>
+    .blue{
+      background-color: blue;
+    }
+    .red{
+      background-color: red;
+    }
+    .active{
+      background-color: aqua;
+      color: aliceblue;
+    }
+    ul{
+      /* display: flex; */
+    }
+    li{
+      list-style: none;
+      width: 200px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+    }
+  </style>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div id="app">
+      {{10+20}}
+      {{ myname }}--{{nameage}}
+      {{ 10>20 ? 'aaa' : 'bbb'}}
+      <div :class="isColor?'red':'blue'">我是蓝色</div>
+      <button @click="handlechange()">change</button>
+      <ul>
+        <li v-for="(item,index) in datalist" :class=" current === index ? 'active':'' " @click="handleClick(index)">{{item}}</li>
+      </ul>
+      <div v-if="isClick">111</div>
+      <div v-if="!isClick">222</div>
+      <h2>所有订单</h2>
+        <ul>
+          <li v-for='item in datalist2'> {{item.title}}--
+            <span v-if="item.state===0">未加购</span> 
+            <span v-else-if="item.state===1">已加购</span>  
+            <span v-else-if="item.state===2">未付款</span> 
+            <span v-else>代发货</span> 
+          </li>
+        </ul>
+
+    </div>
+    <!-- <script type="module" src="/src/main.js"></script> -->
+
+    <Script>
+       var vm = new Vue({
+          el:"#app",
+          data:{
+            myname:"Tina",
+            nameage:100,
+            whichcolor:"blue",
+            isColor:true,
+            datalist:["首页","列表","我的"],
+            current:0,
+            isClick:false,
+            datalist2:[
+            {
+              title:"1111",
+              state:0
+            },
+            {
+              title:"222",
+              state:1
+            },
+            {
+              title:"333",
+              state:2
+            },
+            {
+              title:"444",
+              state:3
+            }
+          ]
+          },
+          methods:{
+            handlechange(){
+              console.log("handle")
+              vm.myname="tomas"
+              vm.nameage=18
+              vm.whichcolor="red"
+              vm.isColor=false
+            },
+            handleClick(index){
+              console.log(index)
+              this.current = index
+            }
+          }
+        })
+    </Script>
   </body>
 </html>
