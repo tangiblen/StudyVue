@@ -34,13 +34,21 @@
       {{10+20}}
       {{ myname }}--{{nameage}}
       {{ 10>20 ? 'aaa' : 'bbb'}}
+
+
       <div :class="isColor?'red':'blue'">我是蓝色</div>
       <button @click="handlechange()">change</button>
+
+
       <ul>
         <li v-for="(item,index) in datalist" :class=" current === index ? 'active':'' " @click="handleClick(index)">{{item}}</li>
       </ul>
+
+
       <div v-if="isClick">111</div>
       <div v-if="!isClick">222</div>
+
+
       <h2>所有订单</h2>
         <ul>
           <li v-for='item in datalist2'> {{item.title}}--
@@ -51,6 +59,26 @@
           </li>
         </ul>
 
+      
+      <ul>
+        <li v-for="(item,index) of datalist3"> {{item}}--{{index}} </li>
+      </ul>
+
+      <!-- 对对象进行遍历 of 跟 in的作用是一样的-->
+      <ul>
+        <li v-for="(item,key) in obj"> {{key}}--{{item}} </li>
+      </ul>
+
+      <ul>
+        <li v-for="item in 10"> {{item}} </li>
+      </ul>
+
+
+      <!-- 搜索框搜索电影内容 -->
+      <input type="text" @input="handleMovie" v-model="mytext" />
+      <ul>
+        <li v-for="data in datalist4" :key="data"> {{data}} </li>
+      </ul>
     </div>
     <!-- <script type="module" src="/src/main.js"></script> -->
 
@@ -82,7 +110,15 @@
               title:"444",
               state:3
             }
-          ]
+          ],
+          datalist3:["111","222","333","444"],
+          obj:{
+            name:'tina',
+            age:24,
+            location:'Jiangxi'
+          },
+          mytext:"",
+          datalist4:["aaa","aabbb","aaabbbccc","ccc","ccdd","ddd","fff","efggcd"]
           },
           methods:{
             handlechange(){
@@ -95,6 +131,9 @@
             handleClick(index){
               console.log(index)
               this.current = index
+            },
+            handleMovie(){
+              console.log("input",this.mytext)
             }
           }
         })
